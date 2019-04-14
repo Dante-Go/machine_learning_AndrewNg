@@ -9,6 +9,8 @@ def sigmoid(z):
 
 
 def predict(x, theta):
+    m, n = x.shape
+    theta = theta.reshape((n, 1))
     z = x * theta
     a = sigmoid(z) > 0.5
     return a

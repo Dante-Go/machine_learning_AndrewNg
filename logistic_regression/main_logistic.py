@@ -3,6 +3,7 @@
 
 import numpy as np
 import pandas as pd
+import scipy.optimize as opt
 
 import hypothesis_logistic as hf
 import plot_data_logistic as pdl
@@ -20,9 +21,9 @@ if __name__ == '__main__':
     plt = pdl.plot_data_logistic(X, Y)
     X = np.hstack((np.ones((m, 1)), X))
     theta = np.zeros((x_n+1, 1))
-    # print(cfl.cost_function(theta, X, Y))
-    # print(cfl.gradient(theta, X, Y))
-    theta = cfl.gradient_descent(X, Y, theta, 0.005, 1500000)
+    # theta = cfl.gradient_descent(X, Y, theta, 0.005, 1500000)
+    result = opt.minimize(fun=cfl.cost_function, x0=theta.flatten(), args=(X, Y), method='TNC', jac=cfl.gradient)
+    theta = result.x
     # theta = np.mat([-25, 0.2, 0.2]).T
     pdl.plot_boundary(theta, X)
     print(theta)

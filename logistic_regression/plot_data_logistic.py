@@ -18,12 +18,15 @@ def plot_data_logistic(x, y):
 
 
 def plot_boundary(theta, x):
+    m, n = x.shape
+    theta = theta.reshape((n, 1))
     if np.size(x, axis=1) <= 3:
         plot_x = np.mat([np.min(x[:, 1]), np.max(x[:, 1])])
-        plot_y = (-1/theta[2, 0])*(theta[1, 0]*plot_x + theta[0, 0])
+        plot_y = (-1/theta[2])*(theta[1]*plot_x + theta[0])
         # print(plot_x.tolist())
         # print(plot_y[0][0])
-        plt.plot(np.array(plot_x)[0], np.array(plot_y)[0])
+        plt.plot(np.array(plot_x)[0], np.array(plot_y)[0], color='k', label='boundary')
+        plt.legend()
         plt.show()
     return plt
 
