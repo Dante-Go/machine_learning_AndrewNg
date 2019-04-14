@@ -3,8 +3,8 @@
 
 # theta = theta - alpha * cost'(theta)
 # theta = theta - alpha * ((1/m)*((hypothesis(theta*x)-y)*x))
-import costFunc
-import hypothesisFun as hFunc
+import costFunc_linear
+import hypothesis_linear as hFunc
 
 
 def gradient_descent(x, y, theta, alpha, iterations):

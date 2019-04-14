@@ -4,8 +4,8 @@
 import numpy as np
 import pandas as pd
 
-import featureNormalize as fn
-import gradientDescent as gd
+import featureNormalize_linear as fn
+import gradientDescent_linear as gd
 
 
 if __name__ == '__main__':

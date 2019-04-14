@@ -2,7 +2,7 @@
 # -*-coding:utf-8-*-
 
 # cost = (1/2)*(hypothesis(x, theta) - y)^2
-import hypothesisFun as hFunc
+import hypothesis_linear as hFunc
 import numpy as np
 
 

@@ -4,9 +4,9 @@
 import pandas as pd
 import numpy as np
 
-import plotData as pltd
-import gradientDescent as gradientDesc
-import hypothesisFun as hFunc
+import plotData_linear as pltd
+import gradientDescent_linear as gradientDesc
+import hypothesis_linear as hFunc
 
 
 if __name__ == '__main__':
