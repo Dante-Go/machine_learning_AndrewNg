@@ -4,6 +4,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+import map_features as mf
+
 
 def plot_data_logistic(x, y):
     pos = np.where(y == 1)[0]
@@ -27,6 +29,18 @@ def plot_boundary(theta, x):
         # print(plot_y[0][0])
         plt.plot(np.array(plot_x)[0], np.array(plot_y)[0], color='k', label='boundary')
         plt.legend()
+        plt.show()
+    else:
+        u = np.linspace(-1, 1.5, 50)
+        v = np.linspace(-1, 1.5, 50)
+        z = np.zeros((len(u), len(v)))
+        for i in range(len(u)):
+            for j in range(len(v)):
+                z[i, j] = mf.map_features(np.mat(u[i]), np.mat(v[j])).dot(theta)
+        z = z.T  # important to transpose z before calling contour
+        # Plot z = 0
+        # Notice you need to specify the range[0, 0]
+        plt.contour(u, v, z, [0], colors='k')
         plt.show()
     return plt
 
