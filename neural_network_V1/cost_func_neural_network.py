@@ -11,8 +11,8 @@ def cost_func(nn_params, input_layer_size, hidden_layer_size, num_labels, x, y, 
                         order='F')
     theta2 = np.reshape(nn_params[hidden_layer_size*(input_layer_size+1):], (num_labels, hidden_layer_size+1),
                         order='F')
-    print('theta1 shape: (%d, %d)' % theta1.shape)
-    print('theta2 shape: (%d, %d)' % theta2.shape)
+    # print('theta1 shape: (%d, %d)' % theta1.shape)
+    # print('theta2 shape: (%d, %d)' % theta2.shape)
     m, n = x.shape
     a0 = np.column_stack((np.ones((m, 1)), x))
     z1 = np.dot(a0, theta1.T)

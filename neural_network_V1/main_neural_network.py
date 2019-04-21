@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 # -*- coding:utf-8 -*-
 import scipy.io as sio
+import scipy.optimize as sop
 import numpy as np
 
 import predict_nn as pnn
 import cost_func_neural_network as cfnn
 import sigmoid_gradient as sg
+import random_initialize_weights as riw
 
 if __name__ == '__main__':
     data = sio.loadmat('ex4data1.mat')
@@ -24,6 +26,22 @@ if __name__ == '__main__':
     input_layer_size = 400
     hidden_layer_size = 25
     num_labels = 10
-    lambda_reg = 0
+    lambda_reg = 1
     cost, grad = cfnn.cost_func(nn_params, input_layer_size, hidden_layer_size, num_labels, X, Y, lambda_reg)
     print(cost)
+    init_theta1 = riw.random_initialize_weights(input_layer_size, hidden_layer_size)
+    init_theta2 = riw.random_initialize_weights(hidden_layer_size, num_labels)
+    initial_params = np.concatenate((init_theta1.reshape(init_theta1.size, order='F'),
+                                     init_theta2.reshape(init_theta2.size, order='F')))
+    max_iter = 50
+    lambda_reg = 0.1
+    my_args = (input_layer_size, hidden_layer_size, num_labels, X, Y, lambda_reg)
+    ret = sop.minimize(cfnn.cost_func, x0=initial_params, args=my_args, options={'disp':True, 'maxiter':max_iter},
+                       method='L-BFGS-B', jac=True)
+    nn_ret_params = ret['x']
+    ret_theta1 = np.reshape(nn_params[:hidden_layer_size*(input_layer_size+1)], (hidden_layer_size, input_layer_size+1),
+                            order='F')
+    ret_theta2 = np.reshape(nn_params[hidden_layer_size*(input_layer_size+1):], (num_labels, hidden_layer_size+1),
+                            order='F')
+    pred = pnn.predict(ret_theta1, ret_theta2, X)
+    print('Training set Accuracy: {:f}%'.format((np.mean(pred == Y)*100)))
