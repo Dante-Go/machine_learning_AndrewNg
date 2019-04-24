@@ -9,6 +9,7 @@ import learning_curve as lc
 import poly_feature as pf
 import features_normalization as fn
 import plot_fit as pltf
+import validate_curve as vc
 
 if __name__ == '__main__':
     data = sio.loadmat('ex5data1.mat')
@@ -76,3 +77,13 @@ if __name__ == '__main__':
     plt.ylabel('Error')
     plt.legend((p3, p4), ('Train', 'Cross Validation'))
     plt.show()
+    # validate curve
+    plt.close('all')
+    lambda_vec, error_train_vc, error_val_vc = vc.validate_curve(X, Y, X_val, Y_val)
+    plt.title('validate curve')
+    plt.xlabel('lambda')
+    plt.ylabel('error')
+    p5, p6 = plt.plot(lambda_vec, error_train_vc*1000000, lambda_vec, error_val_vc*1000000)
+    plt.legend((p5, p6), ('Train', 'cross validation'))
+    plt.show()
+
